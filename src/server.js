@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path'); // permitirnos manejar mas facilmente las rutas de las vistas
-const exphbs = require('express-handlebars'); 
+const exphbs = require('express-handlebars'); // extension de javascript para manejo de vista html
 const methover = require('method-override'); // incluye metodos put y delete en formularios
 const expsess = require('express-session'); //autenticar usuario con credenciales de manera temporal
+const flash = require('connect-flash'); // intercambio de informacion entre vistas
 
 // Initializing
 const app = express();
@@ -26,9 +27,16 @@ app.use(expsess({
     secret: 'admin',
     resave: true,
     saveUninitialized: true
-}))
-// Global Variables
+}));
+app.use(flash());
 
+// Global Variables
+app.use((req, res, next) => {
+    res.locals.sucmsg = req.flash('sucmsg');
+    res.locals.errmsg = req.flash('errmsg')
+
+    next();
+})
 
 // Routes
 app.use(require('./routes/index'));
