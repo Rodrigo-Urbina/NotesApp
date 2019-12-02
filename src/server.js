@@ -40,6 +40,7 @@ app.use((req, res, next) => {
     res.locals.sucmsg = req.flash('sucmsg');
     res.locals.errmsg = req.flash('errmsg')
     res.locals.error = req.flash('error')
+    res.locals.user = req.user || null
     next();
 })
 
