@@ -1,2 +1,0 @@
-D:\Documents\GitHub\NotesApp\obj\Debug\NotesApp.njsprojAssemblyReference.cache
-D:\Documents\GitHub\NotesApp\bin\Microsoft.NodejsTools.WebRole.dll
