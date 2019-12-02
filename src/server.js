@@ -4,10 +4,12 @@ const exphbs = require('express-handlebars'); // extension de javascript para ma
 const methover = require('method-override'); // incluye metodos put y delete en formularios
 const expsess = require('express-session'); //autenticar usuario con credenciales de manera temporal
 const flash = require('connect-flash'); // intercambio de informacion entre vistas
+const passport = require('passport');
 
 // Initializing
 const app = express();
 require('./db');
+require('./config/passport');
 
 // Settings
 app.set('port', process.env.PORT || 3000);
@@ -28,13 +30,16 @@ app.use(expsess({
     resave: true,
     saveUninitialized: true
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(flash());
 
 // Global Variables
 app.use((req, res, next) => {
     res.locals.sucmsg = req.flash('sucmsg');
     res.locals.errmsg = req.flash('errmsg')
-
+    res.locals.error = req.flash('error')
     next();
 })
 
